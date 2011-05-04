@@ -41,13 +41,6 @@ app.get('/vnmk/api/album/:albums', function(req, res){
   // res.send('keywords: ' + req.params.keywords);
 // });
 
-app.get('/vnmk/api/search/singers=:singers?&albums=:albums', function(req, res){
-  res.send(
-    'singers: ' + req.params.singers + '\n' +
-    'albums: ' + req.params.albums + '\n'
-  );
-});
-
 /**
  * Định nghĩa các thuộc tính để tìm kiếm bài hát.
  *   - Chú trọng vào các thuộc tính của <b>file nhạc</b>,
@@ -67,5 +60,54 @@ var searchKeywords = new Array(
   'limits' // Giới hạn số lượng kết quả. Ví dụ: 1..15
 );
 
+/**
+ * Build search query base on searchKeywords array.
+ * 
+ * @param searchKeywords
+ *   - Array contain search supported keywords
+ * @return query
+ *   - Query url
+ */
+function buildSearchQuery(searchKeywords){
+  query = new String;
+  
+  for (var i=0; i < searchKeywords.length; i++) {
+    query += searchKeywords[i] + '=:' + searchKeywords[i] + '?';
+    
+    if(i != searchKeywords.length - 1) {
+      query += '&';
+    }
+  };
+
+  return query;
+}
+
+/**
+ * Menu router for full search operation
+ */
+app.get('/vnmk/api/search/' + buildSearchQuery(searchKeywords), function(req, res){
+  res.send(
+    'right place'
+  );
+});
+
+/**
+ * Test
+ */
+app.get('/vnmk/api/search/singers=:singers?&albums=:albums?',
+  function(req, res){
+  res.send(
+    'right place'
+  );
+  }
+);
+
+/**
+ * Debug
+ */
+app.get('/vnmk/api/debug', function(req, res){
+  var searchQuery = buildSearchQuery(searchKeywords);
+  res.send('/vnmk/api/search/' + searchQuery);
+});
 
 app.listen(3000);
