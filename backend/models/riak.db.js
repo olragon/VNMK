@@ -1,0 +1,1 @@
+var db = require('riak-js').getClient();

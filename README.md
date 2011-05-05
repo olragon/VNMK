@@ -16,9 +16,17 @@
          Homepage: https://github.com/remy/nodemon
          Document: https://github.com/remy/nodemon#readme
          Install: sudo npm install -g nodemon
+      4. riak-js: Node.js client for Riak with support for HTTP and Protocol Buffers.
+         Homepage: https://github.com/frank06/riak-js
+         Document: https://github.com/frank06/riak-js#readme
+         Install: npm install riak-js@lastest
 ## 2. Riak
          Homepage: http://www.basho.com/
          Document: http://wiki.basho.com/
          Install:
           `wget http://downloads.basho.com/riak/riak-0.14/riak_0.14.0-1_amd64.deb`
           `sudo dpkg -i riak*.deb`
+## 3. CoffeeScript: CoffeeScript is a little language that compiles into JavaScript.
+         Homepage: http://jashkenas.github.com/coffee-script/
+         Document: http://jashkenas.github.com/coffee-script/#overview
+         Install: npm install coffee-script     

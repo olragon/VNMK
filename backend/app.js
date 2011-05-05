@@ -1,8 +1,12 @@
 var express = require('express');
+var db = require('riak-js').getClient();
 
+/**
+ * Settings for express framework
+ */
 var app = express.createServer(
-  express.logger(),
-  express.bodyParser()
+  express.logger(), // Log
+  express.bodyParser() // Parse http content body
 );
 
 /**
@@ -82,17 +86,28 @@ app.get('/vnmk/api/album/:albums', function(req, res){
   res.send('albums: ' + req.params.albums);
 });
 
-// app.get('/vnmk/api/search/:keywords', function(req, res){
-  // res.send('keywords: ' + req.params.keywords);
-// });
+/**
+ * Menu router for full search operation
+ * 
+ *   - Link có dạng: /vnmk/api/search/singers=&albums=&songs=&genes=&sources=&quanlities=&formats=&sorts=&limits=
+ *   - Cho phép nhập theo điều kiện AND (sử dụng dấu ,), OR (sử dụng dấu |)
+ *   - Ví dụ: 
+ *     - singers= Hồ Quỳnh Hương | Hồ Ngọc Hà , Quang Dũng
+ *     - 
+ *   - 
+ */
+app.get('/vnmk/api/search/' + buildSearchQuery(searchKeywords), function(req, res){
+  console.log(req.params)
+  res.send(
+    'right place'
+  );
+});
 
 /**
  * Menu router for full search operation
  */
-app.get('/vnmk/api/search/' + buildSearchQuery(searchKeywords), function(req, res){
-  res.send(
-    'right place'
-  );
+app.post('/vnmk/api/search/' + buildSearchQuery(searchKeywords), function(req, res){
+  console.log(req.body.user);
 });
 
 /**
@@ -100,9 +115,9 @@ app.get('/vnmk/api/search/' + buildSearchQuery(searchKeywords), function(req, re
  */
 app.get('/vnmk/api/search/singers=:singers?&albums=:albums?',
   function(req, res){
-  res.send(
-    'right place'
-  );
+    res.send(
+      'right place'
+    );
   }
 );
 
